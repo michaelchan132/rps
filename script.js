@@ -1,6 +1,6 @@
 let buttons = document.querySelector(".buttons");
 buttons.addEventListener("click", (event) => {
-    let target = event.target();
+    let target = event.target;
     switch(target.id){
         case 'rock':
             playRound('rock');
@@ -14,7 +14,7 @@ buttons.addEventListener("click", (event) => {
     }
 });
 
-function playGame(){
+// function playGame(){
     function getComputerChoice(){
         let choice = Math.floor(Math.random() * 3);
         switch (choice){
@@ -46,7 +46,8 @@ function playGame(){
     let humanScore = 0;
     let computerScore = 0;
 
-    function playRound(humanChoice, computerChoice){
+    function playRound(humanChoice){
+        const computerSelection = getComputerChoice
         if (humanChoice == computerChoice) {
             console.log("It's a tie!")        
         } else if (humanChoice == "rock" && computerChoice == "paper") {
@@ -83,6 +84,6 @@ function playGame(){
     } else {
         console.log("You lose the game");
     }
-}
+// }
 
-playGame();
+// playGame();
