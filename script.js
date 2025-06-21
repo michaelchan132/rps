@@ -1,3 +1,19 @@
+let buttons = document.querySelector(".buttons");
+buttons.addEventListener("click", (event) => {
+    let target = event.target();
+    switch(target.id){
+        case 'rock':
+            playRound('rock');
+            break;
+        case 'paper':
+            playRound('paper');
+            break;
+        case 'scissors':
+            playRound('scissors');
+            break;
+    }
+});
+
 function playGame(){
     function getComputerChoice(){
         let choice = Math.floor(Math.random() * 3);
@@ -54,11 +70,11 @@ function playGame(){
         }
         console.log("Your score" + " " + humanScore + " " + "Computer Score" + " " + computerScore)
     }
-    for (let i = 0; i < 5; i ++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-    }
+    // for (let i = 0; i < 5; i ++) {
+    //     const humanSelection = getHumanChoice();
+    //     const computerSelection = getComputerChoice();
+    //     playRound(humanSelection, computerSelection);
+    // }
 
     if (humanScore > computerScore) {
         console.log("You win the game");
