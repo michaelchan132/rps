@@ -1,7 +1,14 @@
+let playerScore = 0;
+let computerScore = 0;
+let gameOver = false;
+
 let buttons = document.querySelector(".buttons");
 let score = document.querySelector("#score");
-let results = document.querySelector("#results");
+let roundResults = document.querySelector("#roundResults");
 let choices = document.querySelector("#choices");
+let gameResults = document.querySelector("#gameResults");
+let reset = document.querySelector("#reset");
+
 buttons.addEventListener("click", (event) => {
     let target = event.target;
     switch(target.id){
@@ -44,24 +51,52 @@ function getPlayerChoice(){
     }
 }
 
-let playerScore = 0;
-let computerScore = 0;
-
 function playRound(playerChoice){
+    if(gameOver){
+        return;
+    }
     const computerChoice = getComputerChoice();
     choices.textContent = `You chose ${playerChoice} | The Computer chose ${computerChoice}`;
     if (playerChoice == computerChoice) {
-        results.textContent =  "It's a tie";
+        roundResults.textContent =  "It's a tie";
     } else if ((playerChoice == "rock" && computerChoice == "scissors") ||
                 (playerChoice == "paper" && computerChoice == "rock") ||
                 (playerChoice == "scissors" && computerChoice == "paper")
 
     ){
-        results.textContent = "You win";
+        roundResults.textContent = "You win";
         ++playerScore
     } else {
-        results.textContent = "You lose";
+        roundResults.textContent = "You lose";
         computerScore++;
     }
+    updateScore();
+    checkGameWinner();
+}
+
+function updateScore(){
     score.textContent = `Your Score is ${playerScore} | The Computers Score is ${computerScore}`;
+}
+
+function checkGameWinner(){
+    if(playerScore == 5 || computerScore == 5){
+        gameOver = true;
+        if(playerScore == 5){
+            gameResults.textContent = "You win the game";
+        } else {
+            gameResults.textContent = "Game Over. Computer wins the game";
+        }
+        reset.innerHTML = `<button id="resetBtn">Play again</button>`;
+        resetBtn.addEventListener("click", () => resetGame());
+    }
+}
+function resetGame(){
+    playerScore = 0;
+    computerScore = 0;
+    gameOver = false;
+    updateScore();
+    choices.textContent = '';
+    roundResults.textContent = '';
+    gameResults.textContent = '';  
+    reset.innerHTML = '';
 }
